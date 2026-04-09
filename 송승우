@@ -1,0 +1,89 @@
+<!DO<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>송승우 버킷리스트 카드</title>
+    <style>
+        /* 기본 카드 디자인 */
+        .card {
+            width: 300px;
+            margin: 50px auto;
+            background: linear-gradient(135deg, #fffcf0 0%, #fff3b0 100%);
+            padding: 15px 15px 35px 15px;
+            border-radius: 2px 2px 15px 5px;
+            box-shadow: 3px 5px 15px rgba(0,0,0,0.15);
+            
+            /* [필수] 배지와 메모의 기준점이 되기 위한 속성 */
+            position: relative; 
+            overflow: hidden; /* 메모가 카드 밖으로 나가지 않게 잘라줌 */
+        }
+
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 15px; }
+        .card h2 { color: #2c3e50; font-size: 1.5rem; margin-bottom: 10px; }
+        .card p { color: #444; font-size: 1.1rem; line-height: 1.5; margin: 5px 0; }
+
+        /* 1. 배지 (Position: absolute) 관련 CSS */
+        .badge {
+            position: absolute; /* 부모(.card)를 기준으로 절대 위치 배치 */
+            top: 10px;          /* 위에서 10px 내려옴 */
+            right: 10px;        /* 오른쪽에서 10px 들어옴 */
+            background-color: #ff4757;
+            color: white;
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;        /* 이미지보다 위에 보이게 설정 */
+        }
+
+        /* 2. 비밀 메모 (Visibility) 관련 CSS */
+        .tmi-memo {
+            position: absolute; /* 카드 내부 바닥에 고정 */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8); /* 반투명 검정 배경 */
+            color: #fff;
+            padding: 15px;
+            font-size: 0.9rem;
+            text-align: center;
+            
+            /* ⭐ 초기 상태: 숨김 */
+            visibility: hidden; 
+            opacity: 0;
+            
+            /* 부드러운 등장 애니메이션 */
+            transition: all 0.3s ease-in-out;
+            transform: translateY(20px); /* 살짝 아래에서 대기 */
+        }
+
+        /* 카드에 마우스를 올렸을 때(:hover) 메모 나타내기 */
+        .card:hover .tmi-memo {
+            visibility: visible; /* 다시 보이게 설정 */
+            opacity: 1;          /* 선명하게 */
+            transform: translateY(0); /* 제자리로 올라옴 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="badge">버킷리스트! 🥲</div>
+
+        
+        
+       <h2>✨ 송승우의 꿈</h2>
+        <p> 🫠1. 개큰 단독주택에서 살기</p>
+        <p> 💵💵2. 사는데 걱정없이 돈 벌기</p>
+        <p> ✈️3. 해외 1달살이 해보기</p>
+        <p> 🏅4. 몸 좋아지기</p>
+        
+        <div class="tmi-memo">
+            🤫 <b>비밀 TMI:</b> 사실 더 부자가 되고싶어요 <br>
+            
+        </div>
+    </div>
+
+</body>
+</html>
