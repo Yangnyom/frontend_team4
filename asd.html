@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>내 버킷리스트 카드</title>
+    <style>
+        /* 기본 카드 디자인 (자유롭게 수정 가능) */
+        .card {
+            width: 300px;
+            margin: 50px auto;
+            background: linear-gradient(135deg, #9074b1 0%, #0e289a 100%);
+            padding: 15px 15px 35px 15px;
+            border-radius: 2px 2px 15px 5px;
+            box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.15);
+            /* 배지의 기준점이 되기 위한 필수 속성 */
+            position: relative; 
+        }
+        
+        .incard{
+            width: 300px;
+            margin: 50px auto;
+            background: linear-gradient(135deg, #d1c7dd 0%, #0e289a 100%);
+            padding: 15px 15px 35px 15px;
+            border-radius: 2px 2px 15px 5px;
+            box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.15);}
+
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 15px; }
+        .card h2 { color: #2c3e50; font-size: 1.5rem; margin-bottom: 10px; }
+        .card p { color: #2c3e50; font-size: 1.1rem; line-height: 1.5; }
+
+        /* 1. 배지 (absolute) 관련 CSS를 작성하세요 */
+                div.em {
+            position: absolute;
+            top: 250px;
+            right: 750px;
+            width: 80px;
+            height: 80px;
+        }
+        p.arrow{
+            position: absolute;
+            top: 540px;
+            right: 1150px;
+            width: 80px;
+            height: 80px;
+            font-size: 75px;
+        }
+        p.tmi2{
+            position: absolute;
+            top: 700px;
+            right: 1100px;
+            width: 80px;
+            height: 80px;
+            
+        }
+        p.list1{
+            position: absolute;
+            top: 425px;
+            right: 900px;
+            color: rgba(0, 0, 0, 0.0);
+        }
+        p.list1:hover{
+            color: beige;
+        }
+        p.list2{
+            position: absolute;
+            top: 470px;
+            right: 1020px;
+            color: rgba(0, 0, 0, 0.0);
+        }
+
+        p.list2:hover{
+            color: beige;
+        }
+
+        p.list3{
+            position: absolute;
+            top: 510px;
+            right: 1020px;
+            color: rgba(0, 0, 0, 0.0);
+        }
+
+        p.list3:hover{
+            color: beige;
+        }
+        p.shootingstar{
+           position: absolute;
+            top: 10px;
+            right: 780px;;
+            font-size: 40px;
+        }
+
+        p.star{
+           position: absolute;
+            top: 320px;
+            right: 750px;;
+            font-size: 40px;
+        }
+
+        /* 2. 비밀 메모 (visibility) 및 hover 효과 관련 CSS를 작성하세요 */
+
+        p.tmi{
+            color: rgba(0, 0, 0, 0.0);
+        }
+        p.tmi:hover {
+              color: whitesmoke;      
+        }
+         
+
+
+    </style>
+</head>
+<body>
+    
+
+    <div class="card">
+    <img src="4707.jpg_wh1200.jpg" alt="t">
+        <h2>✨ 곽태호의 버킷리스트</h2>
+        <div class="incard">
+        <p><input type="checkbox">🦘 1. 번지 점프</p>
+        <p><input type="checkbox">🛸 2. 일식 관측하기</p>
+        <p><input type="checkbox">🌕 3. 달 </p>
+        </div>
+        <p class="tmi">tmi: 어린이때 부터 천문학의 관심이 많아서 밤하늘 별보고 천문현상을 관측 하는 것을 좋아했다</p>
+        </div>
+        
+        <div class="em">
+        <img src="free-icon-shuttle-2285537.png" width="70" alt="우주선 사진">
+    </div>
+    <p class="arrow">➡️</p>
+    <p class="tmi2">tmi</p>
+    <p class="list1">한 번쯤은 해보고 싶어서</p>
+    <p class="list2">tmi</p>
+    <p class="list3">tmi</p>
+    <p class="shootingstar">🌠</p>
+    <p class="star">⭐</p>
+
+    </body>
+</html>
