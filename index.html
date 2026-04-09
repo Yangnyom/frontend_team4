@@ -2,93 +2,193 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>김도연의 버킷리스트 카드</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프론트엔드 4조 버킷리스트 아트 월</title>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <style>
-        /* 기본 카드 디자인 (교수님 제공 뼈대) */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Nanum Pen Script', cursive;
+            background-color: #d4b895;
+            background-image: url('https://www.transparenttextures.com/patterns/cork-board.png');
+            background-attachment: fixed;
+            text-align: center;
+            padding-bottom: 100px;
+        }
+        header {
+            margin: 60px auto 40px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: inline-block;
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+        h1 { color: #333; font-size: 2.8rem; margin-bottom: 10px; }
+        
+        /* 갤러리 컨테이너 */
+        .gallery-container { 
+            width: 95%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px 0;
+        }
+        
+        /* 공통 카드 스타일 */
         .card {
-            width: 300px;
-            margin: 50px auto;
+            width: 30%;
+            min-width: 300px;
             background: linear-gradient(135deg, #fffcf0 0%, #fff3b0 100%);
             padding: 15px 15px 35px 15px;
             border-radius: 2px 2px 15px 5px;
             box-shadow: 3px 5px 15px rgba(0,0,0,0.15);
-            /* 배지의 기준점이 되기 위한 필수 속성 */
             position: relative; 
-            
-            /* 전체 글꼴을 나눔펜글씨로 설정 */
-            font-family: 'Nanum Pen Script', cursive;
+            transform: rotate(-3deg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
+            overflow: hidden;
+            text-align: left;
         }
-
-        /* [필수 1] 배지 (Position: absolute 활용) */
-        .badge {
-            position: absolute;
-            top: -10px;  /* 카드의 위쪽 경계 밖으로 살짝 나가게 */
-            right: -10px; /* 카드의 오른쪽 경계 밖으로 살짝 나가게 */
-            background-color: #3ae374; /* 상큼한 초록색 */
-            color: #333;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            /* 살짝 기울여서 재미를 줍니다 */
-            transform: rotate(15deg);
-            z-index: 10; /* 다른 요소보다 위에 보이게 */
+        .card:nth-child(even) {
+            transform: rotate(2deg);
         }
-
-        /* 카드 이미지 스타일 */
+        .card:hover {
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
         .card img { 
             width: 100%; 
             height: 200px; 
-            object-fit: cover; /* 이미지가 비율에 맞게 꽉 차도록 */
+            object-fit: cover; 
             border-radius: 5px; 
             margin-bottom: 15px; 
         }
 
-        /* 제목 및 텍스트 스타일 */
-        .card h2 { color: #2c3e50; font-size: 2rem; margin-bottom: 15px; text-align: center; }
-        .card p { color: #444; font-size: 1.5rem; line-height: 1.6; margin-left: 10px;}
-
-        /* [필수 2] 비밀 메모 (Visibility 활용) */
-        .tmi-memo {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 8px;
-            border-left: 5px solid #2c3e50;
-            font-size: 1.3rem;
-            color: #e056fd; /* 눈에 띄는 색상 */
-            text-align: center;
-            
-            /* [과제 핵심] 처음에는 숨겨둠 */
-            visibility: hidden; 
-            opacity: 0; /* 서서히 나타나는 효과를 위해 추가 */
-            transition: all 0.4s ease; /* 부드러운 전환 효과 */
+        /* [1] 김강민 카드 전용 */
+        .card-km { background-color: #fffde7; line-height: 1.8; font-family: sans-serif; }
+        .badge-km {
+            position: absolute; top: 10px; right: 10px; background-color: #ff4757; color: white;
+            padding: 8px 12px; border-radius: 4px; transform: rotate(15deg); z-index: 10;
         }
-
-        /* [과제 핵심] 카드에 마우스를 올렸을 때(:hover) 메모가 나타남 */
-        .card:hover .tmi-memo {
-            visibility: visible;
-            opacity: 1;
+        .memo-km {
+            position: absolute; bottom: -60px; left: 0; width: 100%; padding: 15px;
+            background-color: rgba(255, 71, 87, 0.1); color: #d63031; text-align: center;
+            visibility: hidden; opacity: 0; transition: all 0.3s;
         }
+        .card-km:hover .memo-km { visibility: visible; opacity: 1; bottom: 0; }
+
+        /* [2] 이서호 카드 전용 */
+        .card-sh { border: 2px solid #333; border-radius: 15px; background: #ffffff; text-align: center; }
+        .badge-sh {
+            position: absolute; top: 10px; right: 10px; background-color: #ffcc00; border: 2px solid #000;
+            padding: 8px 12px; border-radius: 50px; z-index: 10;
+        }
+        .memo-sh { visibility: hidden; opacity: 0; background-color: #f0f0f0; padding: 10px; transition: 0.3s; }
+        .card-sh:hover .memo-sh { visibility: visible; opacity: 1; }
+
+        /* [3] 곽태호 카드 전용 */
+        .card-th { background: linear-gradient(135deg, #9074b1 0%, #0e289a 100%); color: white; }
+        .incard-th { background: white; padding: 15px; border-radius: 10px; color: #222; font-family: sans-serif; }
+        .tmi-th { color: rgba(255, 255, 255, 0.4); font-size: 0.9rem; margin-top: 10px; transition: 0.3s; }
+        .card-th:hover .tmi-th { color: white; }
+
+        /* [4] 송승우 카드 전용 */
+        .badge-sw { position: absolute; top: 10px; right: 10px; background-color: #ff4757; color: white; padding: 6px 12px; border-radius: 8px; }
+        .memo-sw { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.8); color: #fff; padding: 10px; visibility: hidden; opacity: 0; transition: 0.3s; transform: translateY(20px); }
+        .card-sw:hover .memo-sw { visibility: visible; opacity: 1; transform: translateY(0); }
+
+        /* [5] 김도연 카드 전용 (추가된 부분) */
+        .card-dy h2 { color: #2c3e50; font-size: 2rem; margin-bottom: 15px; text-align: center; }
+        .card-dy p { color: #444; font-size: 1.5rem; line-height: 1.6; margin-left: 10px; }
+        .badge-dy {
+            position: absolute; top: -10px; right: -10px; background-color: #3ae374; color: #333;
+            padding: 8px 15px; border-radius: 20px; font-size: 1.3rem; font-weight: bold;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2); transform: rotate(15deg); z-index: 10;
+        }
+        .memo-dy {
+            margin-top: 20px; padding: 15px; background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 8px; border-left: 5px solid #2c3e50; font-size: 1.3rem;
+            color: #e056fd; text-align: center; visibility: hidden; opacity: 0; transition: all 0.4s ease;
+        }
+        .card-dy:hover .memo-dy { visibility: visible; opacity: 1; }
+
+        /* 반응형 */
+        @media (max-width: 900px) { .card { width: 45%; } }
+        @media (max-width: 600px) { .card { width: 90%; } }
     </style>
 </head>
 <body>
-
-    <div class="card">
-        <div class="badge">Success! ✅</div>
-
-        <img src="후추사진.jpg" alt="도연님의 귀여운 고양이">
+    <header>
+        <h1>🏖️ 2026 버킷리스트 아트 월 🏖️</h1>
+        <p style="font-size: 1.5rem; color: #555;">프론트엔드 4조의 꿈들을 코르크 보드에 붙였습니다!</p>
+    </header>
+    
+    <main class="gallery-container">
         
-        <h2>✨ 김도연의 꿈</h2>
-        <p>🎮 1. 롤 다이아 찍기 =^모^=</p>
-        <p>✈️ 2. 친구들이랑 여행가기</p>
-
-        <div class="tmi-memo">
-            🤫 (TMI) 우리집 고양이는 무려 8kg 뚱냥이 🐈
+        <!-- [1] 김강민 -->
+        <div class="card card-km">
+            <div class="badge-km">버킷리스트 ✅</div>
+            <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=500&q=80" alt="도쿄 풍경">
+            <div class="title-km">✨ 김강민의 꿈</div>
+            <ul style="list-style:none; padding:0;">
+                <li>✈️ 1. 해외 여행 다녀오기</li>
+                <li>💻 2. 게임 만들어서 배포하기</li>
+                <li>🍾 3. 모든 종류의 와인 마셔보기</li>
+            </ul>
+            <div class="memo-km">tmi : 사실 1번은 이미 달성함 ㅎㅎ</div>
         </div>
-    </div>
 
+        <!-- [2] 이서호 -->
+        <div class="card card-sh">
+            <div class="badge-sh">2026</div>
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&q=80" alt="바다">
+            <h2>이서호 버킷리스트</h2>
+            <p>1. 혼자 여행가보기</p>
+            <p>2. 웹사이트 만들어서 배포해보기</p>
+            <p>3. 자격증 취득</p> 
+            <div class="memo-sh">TMI: 오버워치 좋아합니다!</div>
+        </div>
+
+        <!-- [3] 곽태호 -->
+        <div class="card card-th">
+            <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=500&q=80" alt="우주">
+            <h2>✨ 곽태호의 버킷리스트</h2>
+            <div class="incard-th">
+                <p>🦘 1. 번지 점프</p>
+                <p>🛸 2. 일식 관측하기</p>
+                <p>🌕 3. 달 구경</p>
+            </div>
+            <p class="tmi-th">tmi: 천문학에 관심이 많아요 ⭐</p>
+        </div>
+
+        <!-- [4] 송승우 -->
+        <div class="card card-sw">
+            <div class="badge-sw">버킷리스트! 🥲</div>
+            <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=500&q=80" alt="집">
+            <h2>✨ 송승우의 꿈</h2>
+            <p>🫠 1. 단독주택에서 살기</p>
+            <p>💵 2. 돈 걱정 없이 살기</p>
+            <div class="memo-sw">🤫 비밀 TMI: 사실 더 부자가 되고싶어요</div>
+        </div>
+
+        <!-- [5] 김도연 (새로 추가됨) -->
+        <div class="card card-dy">
+            <div class="badge-dy">Success! ✅</div>
+            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500&q=80" alt="귀여운 고양이">
+            <h2>✨ 김도연의 꿈</h2>
+            <p>🎮 1. 롤 다이아 찍기 =^모^=</p>
+            <p>✈️ 2. 친구들이랑 여행가기</p>
+            <div class="memo-dy">
+                🤫 (TMI) 우리집 고양이는 무려 8kg 뚱냥이 🐈
+            </div>
+        </div>
+
+    </main>
 </body>
 </html>
